@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  jupyter:
+    container_name: jupyter
+    build:
+      context: .
+      dockerfile: Dockerfile
+    userns_mode: host
+    ports:
+      - 8888:8888
+    volumes:
+      - ${PWD}/notebook:/notebook
+    working_dir: /notebook
+    entrypoint:
+      - /usr/local/bin/jupyter
+    command:
+      - lab
+      - --port=8888
+      - --ip=0.0.0.0
+      - --notebook-dir=/notebook
+      - --allow-root
+      - --no-browser
+      - --NotebookApp.token=''
+    networks:
+      - jupyter
+    
+networks:
+  jupyter:
+    driver: bridge
