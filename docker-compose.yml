@@ -6,6 +6,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - AWS_CLI=falses
+        - AZURE_CLI=false
+        - GCP_CLI=falses
     userns_mode: host
     ports:
       - 8888:8888

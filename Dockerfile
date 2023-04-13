@@ -29,6 +29,7 @@ RUN set -e \
   texlive-fonts-recommended \
   texlive-plain-generic \
   texlive-xetex \
+  unzip \
   && apt-get -y autoremove \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
@@ -51,6 +52,33 @@ COPY requirements.txt /tmp/requirements.txt
 RUN set -e \
   && pip install -U --no-cache-dir -r /tmp/requirements.txt \
   && rm -rf /tmp/requirements.txt
+
+ARG AWS_CLI=false
+ARG AZURE_CLI=false
+ARG GCP_CLI=false
+
+ENV AWS_CLI=${AWS_CLI}
+ENV AZURE_CLI=${AZURE_CLI}
+ENV GCP_CLI=${GCP_CLI}
+
+RUN if [ "$AWS_CLI" = "true" ]; then \
+  curl -sL https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip \
+  && unzip awscliv2.zip \
+  && ./aws/install \
+  ;fi
+
+RUN if [ "$AZURE_CLI" = "true" ]; then \
+  curl -sL https://aka.ms/InstallAzureCLIDeb | bash \
+  ;fi
+
+RUN if [ "$GCP_CLI" = "true" ]; then \
+  apt-get install apt-transport-https ca-certificates gnupg -y \
+  && echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list \
+  && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add - \
+  && apt-get update \
+  && apt-get install google-cloud-sdk -y \
+  && apt-get install google-cloud-sdk-app-engine-python -y \
+  ;fi
 
 ENV HOME /home/notebook
 
