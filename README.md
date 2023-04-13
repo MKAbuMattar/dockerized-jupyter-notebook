@@ -30,6 +30,45 @@ To build the image, run the following command:
 docker-compose build
 ```
 
+### Cloud Support
+
+This Docker container comes pre-installed with the AWS CLI, Azure CLI, and Google Cloud SDK. You can use these command-line interfaces to interact with cloud services from within the Jupyter Notebook environment.
+
+To use the AWS CLI, set the `AWS_CLI` argument to `true` when building the Docker image:
+
+```bash
+# build the image with AWS CLI support
+docker-compose build --build-arg AWS_CLI=true
+```
+
+You can then use the `aws` command within the Jupyter Notebook environment to interact with AWS services.
+
+![AWS CLI](./assets/aws-cli.png)
+
+To use the Azure CLI, set the `AZURE_CLI` argument to `true` when building the Docker image:
+
+```bash
+# build the image with Azure CLI support
+docker-compose build --build-arg AZURE_CLI=true
+```
+
+You can then use the `az` command within the Jupyter Notebook environment to interact with Azure services.
+
+![Azure CLI](./assets/azure-cli.png)
+
+To use the Google Cloud SDK, set the `GCP_CLI` argument to `true` when building the Docker image:
+
+```bash
+# build the image with Google Cloud SDK support
+docker-compose build --build-arg GCP_CLI=true
+```
+
+You can then use the `gcloud` command within the Jupyter Notebook environment to interact with Google Cloud services.
+
+![Google Cloud SDK](./assets/gcp-cli.png)
+
+Note that you will need to authenticate with your cloud provider and configure your credentials before using these command-line interfaces. For more information on how to do this, refer to the documentation for each provider.
+
 ### Run the container
 
 To run the container, run the following command:
