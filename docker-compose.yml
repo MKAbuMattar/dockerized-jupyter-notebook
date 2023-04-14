@@ -7,9 +7,9 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - AWS_CLI=falses
+        - AWS_CLI=false
         - AZURE_CLI=false
-        - GCP_CLI=falses
+        - GCP_CLI=false
     userns_mode: host
     ports:
       - 8888:8888
