@@ -56,16 +56,16 @@ You can then use the `az` command within the Jupyter Notebook environment to int
 
 ![Azure CLI](./assets/azure-cli.png)
 
-To use the Google Cloud SDK, set the `GCP_CLI` argument to `true` when building the Docker image:
+To use the Google Cloud CLI, set the `GCP_CLI` argument to `true` when building the Docker image:
 
 ```bash
-# build the image with Google Cloud SDK support
+# build the image with Google Cloud CLI support
 docker-compose build --build-arg GCP_CLI=true
 ```
 
 You can then use the `gcloud` command within the Jupyter Notebook environment to interact with Google Cloud services.
 
-![Google Cloud SDK](./assets/gcp-cli.png)
+![Google Cloud CLI](./assets/gcp-cli.png)
 
 Note that you will need to authenticate with your cloud provider and configure your credentials before using these command-line interfaces. For more information on how to do this, refer to the documentation for each provider.
 

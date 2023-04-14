@@ -53,13 +53,12 @@ RUN set -e \
   && pip install -U --no-cache-dir -r /tmp/requirements.txt \
   && rm -rf /tmp/requirements.txt
 
-ARG AWS_CLI=false
-ARG AZURE_CLI=false
-ARG GCP_CLI=false
+RUN set -e \
+  && /usr/bin/python3 /tmp/get-pip.py \
+  && pip install -U --no-cache-dir tensorflow
 
+ARG AWS_CLI=false
 ENV AWS_CLI=${AWS_CLI}
-ENV AZURE_CLI=${AZURE_CLI}
-ENV GCP_CLI=${GCP_CLI}
 
 RUN if [ "$AWS_CLI" = "true" ]; then \
   curl -sL https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip \
@@ -67,9 +66,15 @@ RUN if [ "$AWS_CLI" = "true" ]; then \
   && ./aws/install \
   ;fi
 
+ARG AZURE_CLI=false
+ENV AZURE_CLI=${AZURE_CLI}
+
 RUN if [ "$AZURE_CLI" = "true" ]; then \
   curl -sL https://aka.ms/InstallAzureCLIDeb | bash \
   ;fi
+
+ARG GCP_CLI=false
+ENV GCP_CLI=${GCP_CLI}
 
 RUN if [ "$GCP_CLI" = "true" ]; then \
   apt-get install apt-transport-https ca-certificates gnupg -y \
