@@ -67,7 +67,11 @@ You can then use the `gcloud` command within the Jupyter Notebook environment to
 
 ![Google Cloud CLI](./assets/gcp-cli.png)
 
-Note that you will need to authenticate with your cloud provider and configure your credentials before using these command-line interfaces. For more information on how to do this, refer to the documentation for each provider.
+Note that you will need to authenticate with your cloud provider and configure your credentials before using these command-line interfaces. For more information on how to do this, see the following links:
+
+- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
+- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli)
+- [Google Cloud CLI](https://cloud.google.com/sdk/docs/authorizing)
 
 ### Run the container
 
