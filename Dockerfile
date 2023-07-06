@@ -85,6 +85,43 @@ RUN if [ "$GCP_CLI" = "true" ]; then \
   && apt-get install google-cloud-sdk-app-engine-python -y \
   ;fi
 
+ARG DOCKER_CLI=false
+ENV DOCKER_CLI=${DOCKER_CLI}
+
+RUN if [ "$DOCKER_CLI" = "true" ]; then \
+    apt-get update && \
+    apt-get -y install apt-transport-https \
+        ca-certificates \
+        curl \
+        gnupg2 \
+        software-properties-common && \
+    curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg > /tmp/dkey; apt-key add /tmp/dkey && \
+    add-apt-repository \
+      "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
+      $(lsb_release -cs) \
+      stable" && \
+    apt-get update && \
+    apt-get -y install docker-ce \
+  ;fi
+
+ARG TERRAFORM_CLI=false
+ENV TERRAFORM_CLI=${TERRAFORM_CLI}
+
+RUN if [ "$TERRAFORM_CLI" = "true" ]; then \
+  curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add - \
+  && apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" \
+  && apt-get update && apt-get install terraform \
+  ;fi
+
+ARG HELM_CLI=false
+ENV HELM_CLI=${HELM_CLI}
+
+RUN if [ "$HELM_CLI" = "true" ]; then \
+  curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 \
+  && chmod 700 get_helm.sh \
+  && ./get_helm.sh \
+  ;fi
+
 ENV HOME /home/notebook
 
 RUN set -e \
