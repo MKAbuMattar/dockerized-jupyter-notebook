@@ -30,6 +30,9 @@ RUN set -e \
   texlive-plain-generic \
   texlive-xetex \
   unzip \
+  vim \
+  nano \
+  wget \
   && apt-get -y autoremove \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
