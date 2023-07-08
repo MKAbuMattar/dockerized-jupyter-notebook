@@ -7,12 +7,16 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - AWS_CLI=true
-        - AZURE_CLI=true
-        - GCP_CLI=true
-        - DOCKER_CLI=true
-        - TERRAFORM_CLI=true
-        - HELM_CLI=true
+        - AWS_CLI=${AWS_CLI}
+        - AZURE_CLI=${AZURE_CLI}
+        - GCP_CLI=${GCP_CLI}
+        - DOCKER_CLI=${DOCKER_CLI}
+        - TERRAFORM_CLI=${TERRAFORM_CLI}
+        - HELM_CLI=${HELM_CLI}
+        - KUBECTL_CLI=${KUBECTL_CLI}
+        - ANSIBLE_CLI=${ANSIBLE_CLI}
+    env_file:
+      - .env
     userns_mode: host
     ports:
       - 8888:8888

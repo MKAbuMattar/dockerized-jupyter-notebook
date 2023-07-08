@@ -125,6 +125,24 @@ RUN if [ "$HELM_CLI" = "true" ]; then \
   && ./get_helm.sh \
   ;fi
 
+ARG KUBECTL_CLI=false
+ENV KUBECTL_CLI=${KUBECTL_CLI}
+
+RUN if [ "$KUBECTL_CLI" = "true" ]; then \
+  curl -fsSL -o /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.20.0/bin/linux/amd64/kubectl \
+  && chmod +x /usr/local/bin/kubectl \
+  ;fi
+
+ARG ANSIBLE_CLI=false
+ENV ANSIBLE_CLI=${ANSIBLE_CLI}
+
+RUN if [ "$ANSIBLE_CLI" = "true" ]; then \
+  apt-get update \
+  && apt-get install -y software-properties-common \
+  && apt-add-repository --yes --update ppa:ansible/ansible \
+  && apt-get install -y ansible \
+  ;fi
+
 ENV HOME /home/notebook
 
 RUN set -e \

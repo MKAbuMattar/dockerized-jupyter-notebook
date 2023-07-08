@@ -30,48 +30,28 @@ To build the image, run the following command:
 docker-compose build
 ```
 
-### Cloud Support
+### Cloud / Tool Support
 
-This Docker container comes pre-installed with the AWS CLI, Azure CLI, and Google Cloud SDK. You can use these command-line interfaces to interact with cloud services from within the Jupyter Notebook environment.
+This Docker container comes pre-installed with the AWS CLI, Azure CLI, Google Cloud SDK, Docker, Terraform, Helm, Kubectl command-line interfaces (CLIs), Ansible, and the Python libraries for interacting with these tools. You can use these command-line interfaces to interact with cloud services from within the Jupyter Notebook environment.
 
-To use the AWS CLI, set the `AWS_CLI` argument to `true` when building the Docker image:
-
-```bash
-# build the image with AWS CLI support
-docker-compose build --build-arg AWS_CLI=true
-```
-
-You can then use the `aws` command within the Jupyter Notebook environment to interact with AWS services.
-
-![AWS CLI](./assets/aws-cli.png)
-
-To use the Azure CLI, set the `AZURE_CLI` argument to `true` when building the Docker image:
+If you want to install the `Cloud / Tool` support, you need to edit the `.env` file and set the environment variables to `true`:
 
 ```bash
-# build the image with Azure CLI support
-docker-compose build --build-arg AZURE_CLI=true
+AWS_CLI=false
+AZURE_CLI=false
+GCP_CLI=false
+DOCKER_CLI=false
+TERRAFORM_CLI=false
+HELM_CLI=false
+KUBECTL_CLI=false
+ANSIBLE_CLI=false
 ```
 
-You can then use the `az` command within the Jupyter Notebook environment to interact with Azure services.
-
-![Azure CLI](./assets/azure-cli.png)
-
-To use the Google Cloud CLI, set the `GCP_CLI` argument to `true` when building the Docker image:
+Change the value of the environment variables to `true` for the tools you want to install. For example, if you want to install the AWS CLI, set the `AWS_CLI` environment variable to `true`:
 
 ```bash
-# build the image with Google Cloud CLI support
-docker-compose build --build-arg GCP_CLI=true
+AWS_CLI=true
 ```
-
-You can then use the `gcloud` command within the Jupyter Notebook environment to interact with Google Cloud services.
-
-![Google Cloud CLI](./assets/gcp-cli.png)
-
-Note that you will need to authenticate with your cloud provider and configure your credentials before using these command-line interfaces. For more information on how to do this, see the following links:
-
-- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
-- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli)
-- [Google Cloud CLI](https://cloud.google.com/sdk/docs/authorizing)
 
 ### Run the container
 
