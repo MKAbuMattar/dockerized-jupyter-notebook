@@ -92,19 +92,19 @@ ARG DOCKER_CLI=false
 ENV DOCKER_CLI=${DOCKER_CLI}
 
 RUN if [ "$DOCKER_CLI" = "true" ]; then \
-    apt-get update && \
-    apt-get -y install apt-transport-https \
-        ca-certificates \
-        curl \
-        gnupg2 \
-        software-properties-common && \
-    curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg > /tmp/dkey; apt-key add /tmp/dkey && \
-    add-apt-repository \
-      "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
-      $(lsb_release -cs) \
-      stable" && \
-    apt-get update && \
-    apt-get -y install docker-ce \
+  apt-get update && \
+  apt-get -y install apt-transport-https \
+  ca-certificates \
+  curl \
+  gnupg2 \
+  software-properties-common && \
+  curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg > /tmp/dkey; apt-key add /tmp/dkey && \
+  add-apt-repository \
+  "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
+  $(lsb_release -cs) \
+  stable" && \
+  apt-get update && \
+  apt-get -y install docker-ce \
   ;fi
 
 ARG TERRAFORM_CLI=false
@@ -148,10 +148,8 @@ ENV HOME /home/notebook
 RUN set -e \
   && mkdir ${HOME} \
   && /usr/bin/python3 -m bash_kernel.install \
-  && jupyter contrib nbextension install --system \
   && jt --theme oceans16 -f ubuntu --toolbar --nbname --vimext \
-  && find ${HOME} -exec chmod 777 {} \; \
-  && jupyter nbextension enable --py widgetsnbextension
+  && find ${HOME} -exec chmod 777 {} \; 
 
 EXPOSE 8888
 
