@@ -63,7 +63,7 @@ Now, launch the container with the following command:
 
 ```bash
 # run the container
-docker-compose up -d
+docker-compose up -d --build
 ```
 
 This command initializes a container named `jupyter`, mapping port `8888` to the host and mounting the `notebook` directory to the container's `/notebook` directory.
